@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Article Detail{% endblock %}
+
+{% block content %}
+
+  <div class="article-entry">
+    <div class="jumbotron">
+      <h2>{{ object.title }}</h2>
+      <p>by {{ object.author }} | {{ object.date }}</p>
+    </div>
+
+    <p>{{ object.body }}</p>
+  </div>
+
+    <p>
+      <a href="{% url 'article_edit' article.pk %}">
+        <span class="glyphicon glyphicon-pencil" ></span> Edit</a> |
+      <a href="{% url 'article_delete' article.pk %}">
+        <span class="glyphicon glyphicon-trash" ></span>Delete</a>
+    </p>
+  <p>Back to <a href="{% url 'article_list' %}">All Articles</a> </p>
+  <h3>Comments</h3>
+  {% for comment in object.comments.all %}
+    <p>
+      <span class="font-weight-bold" >{{ comment.author }} &middot;</span>
+      {{ comment }}
+    </p>
+  {% endfor %}
+
+{% endblock %}
